@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d98382ceddbd6c91e8562d35b14c05989a6d05e6008b98b1749572b93e34e9cf"
+            "sha256": "be9c7b7bb7e7d46794858fda704a626bed7762a08574a9d241395e0df772c98e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,31 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "click": {
+            "hashes": [
+                "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
+                "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
+            ],
+            "index": "pypi",
+            "version": "==7.0"
+        },
+        "feedparser": {
+            "hashes": [
+                "sha256:bd030652c2d08532c034c27fcd7c85868e7fa3cb2b17f230a44a6bbc92519bf9",
+                "sha256:cd2485472e41471632ed3029d44033ee420ad0b57111db95c240c9160a85831c",
+                "sha256:ce875495c90ebd74b179855449040003a1beb40cd13d5f037a0654251e260b02"
+            ],
+            "version": "==5.2.1"
+        },
+        "picot": {
+            "hashes": [
+                "sha256:66acbfb62df537d34de6cbcad8c3030a5064373b917353d7dd14aebc80a4a947"
+            ],
+            "index": "pypi",
+            "version": "==0.1.0"
+        }
+    },
     "develop": {
         "atomicwrites": {
             "hashes": [
