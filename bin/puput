@@ -10,7 +10,7 @@ from puput import date_filter
 @click.option('--to-date', is_flag=True)
 @click.argument('url', nargs=1)
 def collect(url, to_date):
-    """This collects all messages for url."""
+    """This collects all messages for url applying the filter if defined."""
     def filter_func(_): return True
     if to_date:
         filter_func = date_filter

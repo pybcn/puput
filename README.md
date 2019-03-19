@@ -13,5 +13,10 @@ pip install puput
 
 Puput is intended to be used as a command:
 ```bash
-$ puput
+$ puput <RSS URL>
+```
+
+The option `--to-date` limits the output to entries published in the last 24h:
+```bash
+$ puput --to-date <RSS URL>
 ```

@@ -1,3 +1,8 @@
+"""This module provides some functions to puput command.
+
+These functions are mostly helpers and tools to support its options.
+"""
+
 import datetime
 
 
