@@ -1,3 +1,26 @@
 #!/usr/bin/env python
 
-print('This is puput')
+import click
+
+import picot.feed
+from puput import date_filter
+
+
+@click.command()
+@click.option('--to-date', is_flag=True)
+@click.argument('url', nargs=1)
+def collect(url, to_date):
+    """This collects all messages for url applying the filter if defined."""
+    def filter_func(_): return True
+    if to_date:
+        filter_func = date_filter
+    entries = picot.feed.Feed(
+        url,
+        filter_func=filter_func,
+    )
+    for entry in entries:
+        print(entry['title'])
+
+
+if __name__ == '__main__':
+    collect()
