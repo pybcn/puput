@@ -5,6 +5,41 @@ import pytest
 import puput
 
 
+normal_entry = {
+    'title': 'Some simple title',
+}
+job_offer_entry = {
+    'title': 'Job offer: Company is looking for employee',
+}
+
+
+@pytest.mark.parametrize(
+    'entry,prefix,expected_output',
+    [
+        (
+            normal_entry,
+            'Job offer',
+            False,
+        ),
+        (
+            job_offer_entry,
+            'Job offer',
+            True,
+        )
+    ],
+    ids=[
+        'Normal entry - Job offer',
+        'Job offer entry - Job offer',
+    ],
+)
+def test_title_filter(
+        entry,
+        prefix,
+        expected_output,
+):
+    assert(puput.title_filter(entry, prefix) == expected_output)
+
+
 today = datetime.datetime(2019, 3, 1, 9, 10, 11, 1234)
 yesterday = 'Thu, 28 Feb 2019 19:10:11 UTC'
 a_week_ago = 'Fri, 22 Feb 2019 19:10:11 UTC'

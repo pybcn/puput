@@ -6,6 +6,11 @@ These functions are mostly helpers and tools to support its options.
 import datetime
 
 
+def title_filter(entry, prefix):
+    """This function return True if the entry's title starts with prefix."""
+    return entry['title'].startswith(prefix)
+
+
 def date_filter(entry):
     """This function returns True if the entry's published date is newer
     than one day."""
