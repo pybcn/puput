@@ -5,6 +5,86 @@ import pytest
 import puput
 
 
+@pytest.mark.parametrize(
+    'args,filters',
+    [
+        (
+            [False, ''],
+            (False, False),
+        ),
+        (
+            [True, ''],
+            (True, False),
+        ),
+        (
+            [False, 'Something'],
+            (False, True),
+        ),
+        (
+            [True, 'Something'],
+            (True, True),
+        ),
+    ],
+    ids=[
+        'No filters',
+        'Only date',
+        'Only title',
+        'Both filters',
+    ],
+)
+def test_filter_generation(args, filters, mocker):
+    mocker.patch('puput.date_filter')
+    mocker.patch('puput.title_filter')
+
+    filtering = puput.filter_generator(*args)
+    filtering({})
+
+    if filters[0]:
+        puput.date_filter.assert_called()
+    else:
+        assert(not puput.date_filter.called)
+
+    if filters[1]:
+        puput.title_filter.assert_called()
+    else:
+        assert(not puput.title_filter.called)
+
+
+normal_entry = {
+    'title': 'Some simple title',
+}
+job_offer_entry = {
+    'title': 'Job offer: Company is looking for employee',
+}
+
+
+@pytest.mark.parametrize(
+    'entry,prefix,expected_output',
+    [
+        (
+            normal_entry,
+            'Job offer',
+            False,
+        ),
+        (
+            job_offer_entry,
+            'Job offer',
+            True,
+        )
+    ],
+    ids=[
+        'Normal entry - Job offer',
+        'Job offer entry - Job offer',
+    ],
+)
+def test_title_filter(
+        entry,
+        prefix,
+        expected_output,
+):
+    assert(puput.title_filter(entry, prefix) == expected_output)
+
+
 today = datetime.datetime(2019, 3, 1, 9, 10, 11, 1234)
 yesterday = 'Thu, 28 Feb 2019 19:10:11 UTC'
 a_week_ago = 'Fri, 22 Feb 2019 19:10:11 UTC'
