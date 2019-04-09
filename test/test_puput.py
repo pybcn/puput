@@ -5,6 +5,51 @@ import pytest
 import puput
 
 
+@pytest.mark.parametrize(
+    'args,filters',
+    [
+        (
+            [False, ''],
+            (False, False),
+        ),
+        (
+            [True, ''],
+            (True, False),
+        ),
+        (
+            [False, 'Something'],
+            (False, True),
+        ),
+        (
+            [True, 'Something'],
+            (True, True),
+        ),
+    ],
+    ids=[
+        'No filters',
+        'Only date',
+        'Only title',
+        'Both filters',
+    ],
+)
+def test_filter_generation(args, filters, mocker):
+    mocker.patch('puput.date_filter')
+    mocker.patch('puput.title_filter')
+
+    filtering = puput.filter_generator(*args)
+    filtering({})
+
+    if filters[0]:
+        puput.date_filter.assert_called()
+    else:
+        assert(not puput.date_filter.called)
+
+    if filters[1]:
+        puput.title_filter.assert_called()
+    else:
+        assert(not puput.title_filter.called)
+
+
 normal_entry = {
     'title': 'Some simple title',
 }
