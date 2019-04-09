@@ -20,3 +20,8 @@ The option `--to-date` limits the output to entries published in the last 24h:
 ```bash
 $ puput --to-date <RSS URL>
 ```
+
+The option `--title-starts` allows to specify a string the title must start with to be accepted:
+```bash
+$ puput --title-starts 'Hello' <RSS URL>
+```

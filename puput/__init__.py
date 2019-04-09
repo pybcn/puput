@@ -7,6 +7,8 @@ import datetime
 
 
 def filter_generator(to_date, title_starts):
+    """This function returns a filter function combining other
+       filters and argument values, if the filters were selected."""
     filters = [
         (
             lambda _: True,
