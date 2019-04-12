@@ -25,3 +25,8 @@ The option `--title-starts` allows to specify a string the title must start with
 ```bash
 $ puput --title-starts 'Hello' <RSS URL>
 ```
+
+The option `--format` allows to specify a string, using Jinja2 templating system, to format the output based on the entry data:
+```bash
+$ puput --format '{{title}} {{link}}' <RSS URL>
+```
