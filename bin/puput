@@ -3,21 +3,23 @@
 import click
 
 import picot.feed
-from puput import filter_generator
+from puput import filter_generator, format_generator
 
 
 @click.command()
 @click.option('--to-date', is_flag=True)
 @click.option('--title-starts', default='')
+@click.option('--format', default='{title}')
 @click.argument('url', nargs=1)
-def collect(url, to_date, title_starts):
+def collect(url, to_date, title_starts, format):
     """This collects all messages for url applying the filter if defined."""
     entries = picot.feed.Feed(
         url,
         filter_func=filter_generator(to_date, title_starts),
+        format_func=format_generator(format),
     )
     for entry in entries:
-        print(entry['title'])
+        print(entry)
 
 
 if __name__ == '__main__':

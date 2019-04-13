@@ -5,6 +5,17 @@ These functions are mostly helpers and tools to support its options.
 
 import datetime
 
+from jinja2 import Template
+
+
+def format_generator(format):
+    """This function returns a format function using format."""
+    def format_func(e):
+        t = Template(format)
+        return t.render(e)
+
+    return format_func
+
 
 def filter_generator(to_date, title_starts):
     """This function returns a filter function combining other
