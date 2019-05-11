@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import time
+
 import click
 
 import picot.feed
@@ -23,6 +25,7 @@ def collect(url, to_date, title_starts, format, dry_run):
     print('{} messages to process'.format(l))
 
     for i, entry in enumerate(entries):
+        time.sleep(1)
         if not dry_run:
             print('Message {}/{} processed: {}'.format(i + 1, l, entry))
         else:
