@@ -5,6 +5,7 @@ import time
 import click
 
 import picot.feed
+from mallerenga.twitter.twitter import Twitter
 from puput import filter_generator, format_generator
 
 
@@ -23,11 +24,18 @@ def collect(url, to_date, title_starts, format, dry_run):
     )
     l = len(entries)
     print('{} messages to process'.format(l))
+    t = Twitter()
 
     for i, entry in enumerate(entries):
         time.sleep(1)
         if not dry_run:
-            print('Message {}/{} processed: {}'.format(i + 1, l, entry))
+            status = t.tweet(entry)
+            print('Message {}/{} processed: {} ({})'.format(
+                i + 1,
+                l,
+                entry,
+                status.link,
+            ))
         else:
             print('Message {}/{} sent: {}'.format(i + 1, l, entry))
 
