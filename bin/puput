@@ -10,8 +10,9 @@ from puput import filter_generator, format_generator
 @click.option('--to-date', is_flag=True)
 @click.option('--title-starts', default='')
 @click.option('--format', default='{{title}}')
+@click.option('--dry-run', is_flag=True)
 @click.argument('url', nargs=1)
-def collect(url, to_date, title_starts, format):
+def collect(url, to_date, title_starts, format, dry_run):
     """This collects all messages for url applying the filter if defined."""
     entries = picot.feed.Feed(
         url,
@@ -19,7 +20,10 @@ def collect(url, to_date, title_starts, format):
         format_func=format_generator(format),
     )
     for entry in entries:
-        print(entry)
+        if not dry_run:
+            print('Message {}'.format(entry))
+        else:
+            print('Message {} sent'.format(entry))
 
 
 if __name__ == '__main__':
