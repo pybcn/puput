@@ -19,11 +19,14 @@ def collect(url, to_date, title_starts, format, dry_run):
         filter_func=filter_generator(to_date, title_starts),
         format_func=format_generator(format),
     )
-    for entry in entries:
+    l = len(entries)
+    print('{} messages to process'.format(l))
+
+    for i, entry in enumerate(entries):
         if not dry_run:
-            print('Message {}'.format(entry))
+            print('Message {}/{} processed: {}'.format(i + 1, l, entry))
         else:
-            print('Message {} sent'.format(entry))
+            print('Message {}/{} sent: {}'.format(i + 1, l, entry))
 
 
 if __name__ == '__main__':
