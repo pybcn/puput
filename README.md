@@ -30,3 +30,10 @@ The option `--format` allows to specify a string, using Jinja2 templating system
 ```bash
 $ puput --format '{{title}} {{link}}' <RSS URL>
 ```
+
+## Example
+
+This is how puput is used to tweet job offers sent to the PyBCN mailing list, which is published as RSS:
+```bash
+$ puput <RSS URL> --to-date --title-starts 'Job Offer' --format '#pybcn #jobs {{title[11:]}} {{link}}'
+```
