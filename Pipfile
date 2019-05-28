@@ -14,6 +14,7 @@ pytest_mock = "*"
 click = "*"
 picot = "*"
 jinja2 = "*"
+mallerenga = "*"
 
 [requires]
 python_version = "3.6"

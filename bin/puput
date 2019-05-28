@@ -1,25 +1,43 @@
 #!/usr/bin/env python
 
+import time
+
 import click
 
 import picot.feed
+from mallerenga.twitter.twitter import Twitter
 from puput import filter_generator, format_generator
 
 
 @click.command()
 @click.option('--to-date', is_flag=True)
 @click.option('--title-starts', default='')
-@click.option('--format', default='{title}')
+@click.option('--format', default='{{title}}')
+@click.option('--dry-run', is_flag=True)
 @click.argument('url', nargs=1)
-def collect(url, to_date, title_starts, format):
+def collect(url, to_date, title_starts, format, dry_run):
     """This collects all messages for url applying the filter if defined."""
     entries = picot.feed.Feed(
         url,
         filter_func=filter_generator(to_date, title_starts),
         format_func=format_generator(format),
     )
-    for entry in entries:
-        print(entry)
+    l = len(entries)
+    print('{} messages to process'.format(l))
+    t = Twitter()
+
+    for i, entry in enumerate(entries):
+        time.sleep(1)
+        if not dry_run:
+            status = t.tweet(entry)
+            print('Message {}/{} processed: {} ({})'.format(
+                i + 1,
+                l,
+                entry,
+                status.link,
+            ))
+        else:
+            print('Message {}/{} sent: {}'.format(i + 1, l, entry))
 
 
 if __name__ == '__main__':
